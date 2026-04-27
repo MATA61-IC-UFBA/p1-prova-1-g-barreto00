@@ -1,38 +1,41 @@
+/* e2.y */
+
 %{
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-extern int yylex();
-extern int yyparse();
-void yyerror(const char *msg);
-
+void yyerror(char *s, ...);
+int yylex();
 %}
 
-%token ERROR
+%token EOL 
+%token NUM      
+%token PLUS      
+%token MINUS       
+%token TIMES      
+%token DIV        
+%token ABRE
+%token FECHA
 
-%start program
+%left PLUS MINUS
+%left TIMES DIV
+ 
+
 
 %%
-
-/* programa */
 program
-: stmt_list 
-;
-
-stmt_list
-: stmt
-| stmt_list stmt
-;
-
-stmt
-: IDENT ASSIGN expr
-| PRINT LPAREN exprlist RPAREN
-| expr
+: expr EOL
 ;
 
 expr
-/* completar */
+    : expr PLUS expr
+    | expr MINUS expr
+    | expr TIMES expr
+    | expr DIV expr
+    | ABRE expr FECHA
+    | NUM
+    ;
+
 
 %%
 
