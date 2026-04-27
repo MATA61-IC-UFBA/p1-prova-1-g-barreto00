@@ -4,8 +4,7 @@ nome = "Joao"
 
 sobrenome = "Silva"
 
-nome_completo = concat(nome, " ", sobrenome)
-
+nome_completo = concat(nome, " ", sob
 print(nome_completo)
 
 
