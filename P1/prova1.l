@@ -2,21 +2,32 @@
 
 %option noyywrap
 %{
-#include "token.h"
+#include "prova1.tab.h"
 %}
 
 DIGIT              [0-9]
-INTEGER_CONST       {DIGIT}+
-REAL_CONST          {INTEGER_CONST}"."{INTEGER_CONST}
+INTEGER_CONST      {DIGIT}+
+REAL_CONST         {INTEGER_CONST}"."{INTEGER_CONST}
+ID                 [a-zA-Z_][a-zA-Z0-9_]*
 
 %%
 
 [ \t]+              ;
 
-{REAL_CONST}       {return NUM;}
+\/\/[^\n]*          ;
 
-{INTEGER_CONST}    {return NUM;}
+{REAL_CONST}        {return NUM;}
+{INTEGER_CONST}     {return NUM;}
 
+\"[^\"\n]*\"        {return STRING;}
+
+"print"             {return PRINT;}
+"concat"            {return CONCAT;}
+"length"            {return LENGTH;}
+{ID}                {return ID;}
+
+"="                 {return ASSIGN;}
+","                 {return COMMA;}
 "+"                 {return PLUS;}
 "-"                 {return MINUS;}
 "*"                 {return TIMES;}
@@ -25,6 +36,6 @@ REAL_CONST          {INTEGER_CONST}"."{INTEGER_CONST}
 ")"                 {return FECHA;}
 
 \n                  {return EOL;}
-.                   {return EOL;}
+.                   {return ILLEGAL;}
 
 %%
