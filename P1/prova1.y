@@ -42,8 +42,6 @@ stmt_list
 
 stmt
     : expr EOL
-    | ILLEGAL EOL
-    | error EOL { yyerrok; }
     | EOL
     ;
 
@@ -72,4 +70,4 @@ arg_list
 
 %%
 
-void yyerror(const char *s);
+
